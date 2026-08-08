@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: dearlavion-spring-master-data-service
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/dearlavion-spring-master-data-service-dev}
+      auto-index-creation: true
+
+server:
+  port: ${PORT:4012}
+
+app:
+  auth-server-url: ${AUTH_SERVER_URL:http://localhost:9081}
+  admin-usernames: ${ADMIN_USERNAMES:admin}
+  frontend-origin: ${FRONTEND_ORIGIN:http://localhost:4200}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
