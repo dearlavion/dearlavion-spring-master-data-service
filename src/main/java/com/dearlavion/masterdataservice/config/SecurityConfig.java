@@ -18,7 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 
 /**
- * GET on every reference-data type + /kit-settings is public (mirrors store-engine-v2's taxonomy
+ * GET on every reference-data type is public (mirrors store-engine-v2's taxonomy
  * module — the frontend and other services read this without a token); /admin/** writes require
  * ROLE_ADMIN.
  */
@@ -49,7 +49,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/destinations/**", "/seasons/**", "/parties/**",
                                 "/transportation-modes/**", "/activities/**", "/kit-categories/**",
-                                "/durations/**", "/genders/**", "/kit-settings",
+                                "/durations/**", "/genders/**",
                                 // The collection registry and any admin-created collection's values —
                                 // same public-read rule the 8 built-in types get above.
                                 "/collections", "/collections/**"

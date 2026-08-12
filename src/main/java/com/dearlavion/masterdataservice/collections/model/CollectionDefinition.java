@@ -23,7 +23,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "collections")
 public class CollectionDefinition {
 
-    /** Stable identifier used in URLs and /kit-settings, e.g. "destination" or "fabric". Immutable. */
+    /** Stable identifier used in URLs and in store-engine's kit_settings, e.g. "destination" or "fabric". Immutable. */
     @Id
     private String key;
 

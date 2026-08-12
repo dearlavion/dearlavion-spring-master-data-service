@@ -7,8 +7,9 @@ import java.util.List;
 /**
  * Registry rows for the 8 original types, inserted on first startup by {@link CollectionBootstrap}.
  * Seed data, not a runtime constant: once a row exists the database is the source of truth, so an
- * admin renaming "Parties" to "Who's Going" survives every restart. Keys must match
- * {@code KitSettings.DEFAULT_ORDER} and the {@code @RequestMapping} paths on each type's controllers.
+ * admin renaming "Parties" to "Who's Going" survives every restart. Keys must match the
+ * {@code @RequestMapping} paths on each type's controllers, and the keys store-engine-v2's
+ * kit_settings document orders the survey by.
  */
 public final class CollectionRegistrySeed {
 

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Pattern;
 
 /**
  * @param key optional — derived from the label when omitted. Constrained to the same camelCase
- *            shape the 8 built-in keys use, since it appears in URLs and in /kit-settings.
+ *            shape the 8 built-in keys use, since it appears in URLs and in store-engine's kit_settings.
  */
 public record CreateCollectionRequest(
         @NotBlank String label,

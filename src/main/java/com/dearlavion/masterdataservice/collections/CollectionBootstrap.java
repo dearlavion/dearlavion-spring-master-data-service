@@ -17,9 +17,6 @@ import org.springframework.stereotype.Component;
  * <p>Insert-only on purpose: an existing row is left exactly as-is, so an admin's renamed label
  * isn't reverted on the next restart.
  *
- * <p>Must run before every other runner: SeedRunner ends by calling
- * {@code KitSettingsService.updateOrder}, which now validates its keys against this registry and
- * would reject the default order outright if the rows weren't in place yet.
  */
 @Slf4j
 @Component
