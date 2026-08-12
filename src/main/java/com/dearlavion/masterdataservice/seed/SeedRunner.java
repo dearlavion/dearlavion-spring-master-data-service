@@ -8,8 +8,8 @@ import com.dearlavion.masterdataservice.kitcategory.KitCategoryService;
 import com.dearlavion.masterdataservice.party.PartyService;
 import com.dearlavion.masterdataservice.season.SeasonService;
 import com.dearlavion.masterdataservice.transportation.TransportationModeService;
-import com.dearlavion.masterdataservice.typeorder.TypeOrderService;
-import com.dearlavion.masterdataservice.typeorder.model.TypeOrder;
+import com.dearlavion.masterdataservice.kitsettings.KitSettingsService;
+import com.dearlavion.masterdataservice.kitsettings.model.KitSettings;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
- * Idempotently upserts all 8 reference-data types + the default type order from
+ * Idempotently upserts all 8 reference-data types + the default question order from
  * {@link ReferenceDataSeed} — byte-identical to store-engine-v2's TaxonomySeedData, so a fresh
  * deploy of this service behaves the same as the live taxonomy module until an admin edits
  * something. Only runs under the "seed" Spring profile:
@@ -37,7 +37,7 @@ public class SeedRunner implements CommandLineRunner {
     private final KitCategoryService kitCategoryService;
     private final DurationService durationService;
     private final GenderService genderService;
-    private final TypeOrderService typeOrderService;
+    private final KitSettingsService kitSettingsService;
 
     @Override
     public void run(String... args) {
@@ -61,8 +61,8 @@ public class SeedRunner implements CommandLineRunner {
             count++;
         }
 
-        typeOrderService.updateOrder(TypeOrder.DEFAULT_ORDER);
+        kitSettingsService.updateOrder(KitSettings.DEFAULT_ORDER);
 
-        log.info("Seeded {} reference-data values across 8 types + default type order.", count);
+        log.info("Seeded {} reference-data values across 8 types + default question order.", count);
     }
 }
