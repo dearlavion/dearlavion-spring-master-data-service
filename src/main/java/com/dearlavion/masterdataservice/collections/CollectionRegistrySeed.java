@@ -14,14 +14,14 @@ import java.util.List;
 public final class CollectionRegistrySeed {
 
     public static final List<CollectionDefinition> BUILT_INS = List.of(
-            new CollectionDefinition("destination", "Destinations", "destinations", true),
-            new CollectionDefinition("season", "Seasons", "seasons", true),
-            new CollectionDefinition("party", "Parties", "parties", true),
-            new CollectionDefinition("transportation", "Transportation", "transportation-modes", true),
-            new CollectionDefinition("activity", "Activities", "activities", true),
-            new CollectionDefinition("kitCategory", "Kit Categories", "kit-categories", true),
-            new CollectionDefinition("duration", "Durations", "durations", true),
-            new CollectionDefinition("gender", "Genders", "genders", true)
+            new CollectionDefinition("destination", "Destinations", "destinations", true, "destinations"),
+            new CollectionDefinition("season", "Seasons", "seasons", true, "seasons"),
+            new CollectionDefinition("party", "Parties", "parties", true, "parties"),
+            new CollectionDefinition("transportation", "Transportation", "transportation-modes", true, "transportation_modes"),
+            new CollectionDefinition("activity", "Activities", "activities", true, "activities"),
+            new CollectionDefinition("kitCategory", "Kit Categories", "kit-categories", true, "kit_categories"),
+            new CollectionDefinition("duration", "Durations", "durations", true, "durations"),
+            new CollectionDefinition("gender", "Genders", "genders", true, "genders")
     );
 
     private CollectionRegistrySeed() {

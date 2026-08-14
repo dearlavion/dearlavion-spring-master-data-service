@@ -41,15 +41,29 @@ public class CollectionDefinition {
     /** True for the 8 originals — renameable, never deletable. */
     private boolean builtIn;
 
-    public CollectionDefinition(String key, String label, String path, boolean builtIn) {
+    /**
+     * The Mongo collection holding this collection's values: {@code destinations} for a built-in,
+     * and for a custom one the snake_cased key ({@code fabricType} -> {@code fabric_type}). Stored
+     * rather than derived on the fly so the name is pinned at creation and a later change to the
+     * derivation rule can't orphan existing data.
+     */
+    private String storage;
+
+    public CollectionDefinition(String key, String label, String path, boolean builtIn, String storage) {
         this.key = key;
         this.label = label;
         this.path = path;
         this.builtIn = builtIn;
+        this.storage = storage;
     }
 
     /** Path convention for an admin-created collection, whose values have no dedicated endpoints. */
     public static String customPath(String key) {
         return "collections/" + key + "/items";
+    }
+
+    /** camelCase key -> snake_case Mongo collection, matching the built-ins' naming. */
+    public static String storageFor(String key) {
+        return key.replaceAll("([a-z0-9])([A-Z])", "$1_$2").toLowerCase(java.util.Locale.ROOT);
     }
 }

@@ -3,7 +3,12 @@ spring:
     name: dearlavion-spring-master-data-service
   data:
     mongodb:
-      uri: ${MONGODB_URI:mongodb://localhost:27017/dearlavion-spring-master-data-service-dev}
+      # No localhost fallback: every environment, dev included, runs against the Atlas cluster.
+      # MONGODB_URI is required — startup fails loudly rather than silently writing to a local
+      # Mongo nobody else can see. Passed as an env var (same as auth-service-v3 and
+      # payment-service-v2 are launched here) rather than written into this file, which is a
+      # public repo.
+      uri: ${MONGODB_URI}
       auto-index-creation: true
 
 server:

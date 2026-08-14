@@ -18,7 +18,9 @@ import java.util.stream.Collectors;
 public class CollectionRegistryService {
 
     private final CollectionDefinitionRepository repository;
-    private final CustomCollectionItemRepository itemRepository;
+    // Lazily resolved: CustomCollectionItemService depends on this service, so constructor
+    // injection either way round would be a cycle.
+    private final org.springframework.beans.factory.ObjectProvider<CustomCollectionItemService> itemService;
 
     public List<CollectionDefinition> listAll() {
         return repository.findAllByOrderByLabelAsc();
@@ -41,7 +43,23 @@ public class CollectionRegistryService {
         if (repository.existsById(key)) {
             throw new ConflictException("A collection with key \"" + key + "\" already exists");
         }
-        return repository.save(new CollectionDefinition(key, label, CollectionDefinition.customPath(key), false));
+
+        // Each collection gets its own Mongo collection, so the derived name must not land on one
+        // already in use — e.g. a new collection keyed "destinations" would otherwise resolve onto
+        // the built-in Destination type's own collection.
+        String storage = CollectionDefinition.storageFor(key);
+        boolean storageTaken = repository.findAll().stream()
+                .anyMatch(existing -> storage.equals(existing.getStorage()));
+        if (storageTaken) {
+            throw new ConflictException("\"" + label + "\" would collide with an existing collection's storage (" + storage + ")");
+        }
+
+        CollectionDefinition saved =
+                repository.save(new CollectionDefinition(key, label, CollectionDefinition.customPath(key), false, storage));
+        // Created up front (with the same unique index the built-ins carry) so a brand-new
+        // collection is visible in the database before its first value is added.
+        itemService.getObject().initStorage(storage);
+        return saved;
     }
 
     public CollectionDefinition rename(String key, String label) {
@@ -61,7 +79,7 @@ public class CollectionRegistryService {
         if (definition.isBuiltIn()) {
             throw new ConflictException("\"" + definition.getLabel() + "\" is a built-in collection and can't be deleted");
         }
-        itemRepository.deleteByCollectionKey(key);
+        itemService.getObject().dropStorage(definition.getStorage());
         repository.deleteById(key);
     }
 
