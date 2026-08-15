@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,6 +25,11 @@ import java.util.List;
  */
 @Slf4j
 @Component
+// One-time move, already applied everywhere it was needed, and it drops the legacy
+// collection when it runs — off unless explicitly asked for. Kept rather than deleted so a
+// database still on the old shared-collection layout can be migrated with
+// APP_CUSTOM_COLLECTION_MIGRATION_ENABLED=true.
+@ConditionalOnProperty(name = "app.custom-collection-migration-enabled", havingValue = "true")
 @Order(Ordered.HIGHEST_PRECEDENCE + 2)
 @RequiredArgsConstructor
 public class CustomCollectionStorageMigration implements ApplicationRunner {
