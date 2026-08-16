@@ -21,7 +21,10 @@ public final class CollectionRegistrySeed {
             new CollectionDefinition("activity", "Activities", "activities", true, "activities"),
             new CollectionDefinition("kitCategory", "Kit Categories", "kit-categories", true, "kit_categories"),
             new CollectionDefinition("duration", "Durations", "durations", true, "durations"),
-            new CollectionDefinition("gender", "Genders", "genders", true, "genders")
+            new CollectionDefinition("gender", "Genders", "genders", true, "genders"),
+            // What a product IS (one per product, drives the shop). KitCategory above is what a
+            // product is PACKED IN (several per product, drives the survey) — different axes.
+            new CollectionDefinition("productCategory", "Product Categories", "product-categories", true, "product_categories")
     );
 
     private CollectionRegistrySeed() {

@@ -5,6 +5,7 @@ import com.dearlavion.masterdataservice.destination.DestinationService;
 import com.dearlavion.masterdataservice.duration.DurationService;
 import com.dearlavion.masterdataservice.gender.GenderService;
 import com.dearlavion.masterdataservice.kitcategory.KitCategoryService;
+import com.dearlavion.masterdataservice.productcategory.ProductCategoryService;
 import com.dearlavion.masterdataservice.party.PartyService;
 import com.dearlavion.masterdataservice.season.SeasonService;
 import com.dearlavion.masterdataservice.transportation.TransportationModeService;
@@ -39,6 +40,7 @@ public class SeedRunner implements CommandLineRunner {
     private final TransportationModeService transportationModeService;
     private final ActivityService activityService;
     private final KitCategoryService kitCategoryService;
+    private final ProductCategoryService productCategoryService;
     private final DurationService durationService;
     private final GenderService genderService;
 
@@ -53,6 +55,7 @@ public class SeedRunner implements CommandLineRunner {
                 case "transportation" -> transportationModeService.upsert(entry.value(), entry.order(), entry.emoji(), entry.subtext());
                 case "activity" -> activityService.upsert(entry.value(), entry.order(), entry.emoji(), entry.subtext());
                 case "kitCategory" -> kitCategoryService.upsert(entry.value(), entry.order(), entry.emoji(), entry.subtext());
+                case "productCategory" -> productCategoryService.upsert(entry.value(), entry.order(), entry.emoji(), entry.subtext());
                 case "gender" -> genderService.upsert(entry.value(), entry.order(), entry.emoji(), entry.subtext());
                 default -> throw new IllegalStateException("Unknown seed type: " + entry.type());
             }

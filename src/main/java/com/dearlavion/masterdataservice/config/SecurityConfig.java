@@ -49,7 +49,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,
                                 "/destinations/**", "/seasons/**", "/parties/**",
                                 "/transportation-modes/**", "/activities/**", "/kit-categories/**",
-                                "/durations/**", "/genders/**",
+                                "/durations/**", "/genders/**", "/product-categories/**",
                                 // The collection registry and any admin-created collection's values —
                                 // same public-read rule the 8 built-in types get above.
                                 "/collections", "/collections/**"
