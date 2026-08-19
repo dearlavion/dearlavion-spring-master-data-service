@@ -1,4 +1,9 @@
 spring:
+  config:
+    # Reads a gitignored .env from the project root, the same mechanism store-engine-v2 and
+    # authentication-service-v3 use, so the Atlas credential never has to be passed as a plaintext
+    # env var (visible via `ps`) or typed into a shell each time this is started.
+    import: optional:file:.env[.properties]
   application:
     name: dearlavion-spring-master-data-service
   data:
